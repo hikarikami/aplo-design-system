@@ -11,6 +11,7 @@ export default defineConfig({
     tailwindcss(),
     {
       name: 'resolve-workspace-at-alias',
+      enforce: 'pre',
       async resolveId(id, importer, options) {
         if (id.startsWith('@/') && importer?.includes('/packages/ui/src')) {
           return this.resolve(
