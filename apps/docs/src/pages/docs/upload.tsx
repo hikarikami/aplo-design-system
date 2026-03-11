@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Code, FileUpload, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { FileUploadPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -67,14 +68,7 @@ export default function UploadDocs() {
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'onFileSelect', type: '(file: File) => void', default: '—' },
-          { name: 'accept', type: 'string[]', default: "['image/jpeg', 'image/png', 'image/webp']" },
-          { name: 'maxSizeMb', type: 'number', default: '10' },
-          { name: 'label', type: 'string', default: "'Click to upload or drag and drop'" },
-          { name: 'hint', type: 'string', default: "'PNG, JPG, WebP up to 10 MB'" },
-          { name: 'error', type: 'string', default: '—' },
-        ]} />
+        <PropsTable props={FileUploadPropDefs} />
       </DocSection>
     </DocPage>
   )

@@ -2,6 +2,7 @@ import { ArrowRight, Mail, Trash2 } from 'lucide-react'
 import { Button, Code, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { ButtonPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -102,13 +103,7 @@ export default function ButtonDocs() {
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link'", default: "'primary'" },
-          { name: 'size', type: "'sm' | 'default' | 'lg' | 'xl' | 'icon' | 'icon-sm'", default: "'default'" },
-          { name: 'loading', type: 'boolean', default: 'false' },
-          { name: 'disabled', type: 'boolean', default: 'false' },
-          { name: 'className', type: 'string', default: '—' },
-        ]} />
+        <PropsTable props={ButtonPropDefs} />
       </DocSection>
 
     </DocPage>

@@ -1,6 +1,7 @@
 import { Code, PageHeader, Switch } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { SwitchPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -66,13 +67,7 @@ const [enabled, setEnabled] = useState(false)
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'checked', type: 'boolean', default: '—' },
-          { name: 'defaultChecked', type: 'boolean', default: 'false' },
-          { name: 'onCheckedChange', type: '(checked: boolean) => void', default: '—' },
-          { name: 'size', type: "'default' | 'sm'", default: "'default'" },
-          { name: 'disabled', type: 'boolean', default: 'false' },
-        ]} />
+        <PropsTable props={SwitchPropDefs} />
       </DocSection>
     </DocPage>
   )

@@ -1,6 +1,7 @@
 import { Code, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { CodePropDefs } from '@/gen/component-props'
 
 const TOC = [
   { id: 'installation', label: 'Installation' },
@@ -62,12 +63,7 @@ async function fetchUser(id: string): Promise<{ name: string; status: Status }> 
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'children', type: 'string', default: '—', description: 'The code string to display and copy.' },
-          { name: 'language', type: "'tsx' | 'typescript' | 'ts' | 'bash' | 'sh'", default: "'tsx'", description: 'Prism language for syntax highlighting.' },
-          { name: 'showCopy', type: 'boolean', default: 'true', description: 'Show or hide the copy-to-clipboard button.' },
-          { name: 'className', type: 'string', default: '—', description: 'Additional class names applied to the wrapper.' },
-        ]} />
+        <PropsTable props={CodePropDefs} />
       </DocSection>
 
     </DocPage>

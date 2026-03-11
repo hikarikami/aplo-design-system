@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Checkbox, Code, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { CheckboxPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -84,14 +85,7 @@ const [checked, setChecked] = useState(false)
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'checked', type: 'boolean', default: '—' },
-          { name: 'defaultChecked', type: 'boolean', default: 'false' },
-          { name: 'onCheckedChange', type: '(checked: boolean) => void', default: '—' },
-          { name: 'indeterminate', type: 'boolean', default: 'false' },
-          { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'" },
-          { name: 'disabled', type: 'boolean', default: 'false' },
-        ]} />
+        <PropsTable props={CheckboxPropDefs} />
       </DocSection>
     </DocPage>
   )

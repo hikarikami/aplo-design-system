@@ -3,6 +3,7 @@ import { Zap, Rocket, Building2, Palette, Code2, BarChart3 } from 'lucide-react'
 import { Code, PageHeader, Radio, RadioCard, RadioGroup } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { RadioGroupPropDefs, RadioPropDefs, RadioCardPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -200,11 +201,11 @@ const [value, setValue] = useState('b')
       <DocSection id="api" title="API Reference">
         <div className="space-y-4">
           <p className="text-sm font-medium text-foreground">RadioGroup</p>
-          <PropsTable props={[{ name: 'value', type: 'string', default: '—' }, { name: 'defaultValue', type: 'string', default: '—' }, { name: 'onValueChange', type: '(value: string) => void', default: '—' }, { name: 'orientation', type: "'vertical' | 'horizontal'", default: "'vertical'" }]} />
+          <PropsTable props={RadioGroupPropDefs} />
           <p className="text-sm font-medium text-foreground pt-2">Radio</p>
-          <PropsTable props={[{ name: 'value', type: 'string', default: '—' }, { name: 'size', type: "'default' | 'sm'", default: "'default'" }, { name: 'indicator', type: "'dot' | 'check'", default: "'dot'" }, { name: 'disabled', type: 'boolean', default: 'false' }]} />
+          <PropsTable props={RadioPropDefs} />
           <p className="text-sm font-medium text-foreground pt-2">RadioCard</p>
-          <PropsTable props={[{ name: 'value', type: 'string', default: '—' }, { name: 'title', type: 'string', default: '—' }, { name: 'description', type: 'string', default: '—' }, { name: 'image', type: 'string', default: '—' }, { name: 'startContent', type: 'ReactNode', default: '—' }, { name: 'layout', type: "'list' | 'card'", default: "'list'" }, { name: 'disabled', type: 'boolean', default: 'false' }]} />
+          <PropsTable props={RadioCardPropDefs} />
         </div>
       </DocSection>
     </DocPage>

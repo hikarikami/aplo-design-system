@@ -2,6 +2,7 @@ import { Moon } from 'lucide-react'
 import { Button, Code, Navbar, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { NavbarPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -52,7 +53,7 @@ export default function NavbarDocs() {
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[{ name: 'left', type: 'ReactNode', default: '—' }, { name: 'right', type: 'ReactNode', default: '—' }, { name: 'className', type: 'string', default: '—' }]} />
+        <PropsTable props={NavbarPropDefs} />
       </DocSection>
     </DocPage>
   )

@@ -3,6 +3,7 @@ import { Code, Input, PageHeader } from '@aplo/ui'
 import { Search, Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { InputPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -114,19 +115,7 @@ const [value, setValue] = useState('')
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'label', type: 'string', default: '—' },
-          { name: 'placeholder', type: 'string', default: '—' },
-          { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'" },
-          { name: 'prefixIcon', type: 'ReactNode', default: '—' },
-          { name: 'suffixIcon', type: 'ReactNode', default: '—' },
-          { name: 'maxLength', type: 'number', default: '—' },
-          { name: 'description', type: 'string', default: '—' },
-          { name: 'error', type: 'string', default: '—' },
-          { name: 'disabled', type: 'boolean', default: 'false' },
-          { name: 'value', type: 'string', default: '—' },
-          { name: 'onChange', type: 'React.ChangeEventHandler<HTMLInputElement>', default: '—' },
-        ]} />
+        <PropsTable props={InputPropDefs} />
       </DocSection>
     </DocPage>
   )

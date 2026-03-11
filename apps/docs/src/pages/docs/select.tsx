@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Code, PageHeader, Select, SelectGroup, SelectItem } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { SelectPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -100,18 +101,7 @@ const [value, setValue] = useState<string | null>(null)
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'label', type: 'string', default: '—' },
-          { name: 'placeholder', type: 'string', default: "'Select…'" },
-          { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'" },
-          { name: 'value', type: 'string | undefined', default: '—' },
-          { name: 'defaultValue', type: 'string', default: '—' },
-          { name: 'onValueChange', type: '(value: string) => void', default: '—' },
-          { name: 'description', type: 'string', default: '—' },
-          { name: 'error', type: 'string', default: '—' },
-          { name: 'disabled', type: 'boolean', default: 'false' },
-          { name: 'children', type: 'ReactNode', default: '—' },
-        ]} />
+        <PropsTable props={SelectPropDefs} />
       </DocSection>
     </DocPage>
   )

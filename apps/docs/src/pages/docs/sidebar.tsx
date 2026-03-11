@@ -1,6 +1,7 @@
 import { Code, PageHeader, Sidebar } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { SidebarPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -63,7 +64,7 @@ export default function SidebarDocs() {
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[{ name: 'defaultOpen', type: 'boolean', default: 'true' }, { name: 'children', type: 'ReactNode', default: '—' }, { name: 'className', type: 'string', default: '—' }]} />
+        <PropsTable props={SidebarPropDefs} />
       </DocSection>
     </DocPage>
   )

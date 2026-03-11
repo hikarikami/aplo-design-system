@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { Button, Code, Hero, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { HeroPropDefs } from '@/gen/component-props'
 import { Preview } from '@/components/preview'
 
 const TOC = [
@@ -129,15 +130,7 @@ export default function HeroDocs() {
       </DocSection>
 
       <DocSection id="api" title="API Reference">
-        <PropsTable props={[
-          { name: 'backgroundEffect', type: "'stipple-follow' | undefined", default: '—', description: 'Enables the interactive stipple particle globe.' },
-          { name: 'globeShadowAngle', type: 'number', default: '-135', description: 'Angle (degrees) of the sparse/shadow side of the globe.' },
-          { name: 'globeShadowStrength', type: 'number', default: '0.75', description: 'Fade intensity of the directional shadow (0 = uniform, 1 = maximum).' },
-          { name: 'scaleCircle', type: 'boolean', default: 'false', description: 'Scale the globe radius proportionally with the container (~1/3 of hero size).' },
-          { name: 'globeRadius', type: 'number', default: '—', description: 'Explicit globe radius in pixels. Overrides scaleCircle and the built-in default (640).' },
-          { name: 'className', type: 'string', default: '—', description: 'Additional class names applied to the section element.' },
-          { name: 'children', type: 'ReactNode', default: '—', description: 'Content rendered above the canvas layer.' },
-        ]} />
+        <PropsTable props={HeroPropDefs} />
       </DocSection>
     </DocPage>
   )

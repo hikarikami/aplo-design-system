@@ -7,7 +7,8 @@
     "build": "pnpm build:ui && pnpm build:docs",
     "build:ui": "pnpm --filter @aplo/ui build",
     "build:docs": "pnpm --filter aplo-docs build",
-    "preview": "pnpm --filter aplo-docs preview"
+    "preview": "pnpm --filter aplo-docs preview",
+    "gen:props": "pnpm build:ui && node scripts/generate-props.mjs"
   },
   "devDependencies": {
     "typescript": "~5.6.2"
