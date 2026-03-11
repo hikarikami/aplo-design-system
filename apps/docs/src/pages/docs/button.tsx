@@ -1,20 +1,40 @@
 import { ArrowRight, Mail, Trash2 } from 'lucide-react'
-import { Button, Code, Container, PageHeader } from '@aplo/ui'
+import { Button, Code, PageHeader } from '@aplo/ui'
+import { DocPage, DocSection } from '@/components/doc-page'
+import { PropsTable } from '@/components/props-table'
+
+const TOC = [
+  { id: 'installation', label: 'Installation' },
+  { id: 'usage', label: 'Usage' },
+  { id: 'variants', label: 'Variants' },
+  { id: 'sizes', label: 'Sizes' },
+  { id: 'icons', label: 'With Icons' },
+  { id: 'loading', label: 'Loading' },
+  { id: 'disabled', label: 'Disabled' },
+  { id: 'full-width', label: 'Full Width' },
+  { id: 'api', label: 'API Reference' },
+]
 
 export default function ButtonDocs() {
   return (
-    <Container className="py-16 space-y-16">
+    <DocPage toc={TOC}>
 
       <PageHeader
-        id="button"
         title="Button"
         description="Flexible button primitive built on CVA + Tailwind. Switch variants, sizes, or loading states — all driven by CSS variables so one edit rethemes every button in the app."
       />
 
-      <hr className="border-border" />
+      <DocSection id="installation" title="Installation">
+        <Code language="ts">{`import { Button } from '@aplo/ui'`}</Code>
+      </DocSection>
 
-      <section id="variants" className="space-y-6">
-        <SectionLabel>Variants</SectionLabel>
+      <DocSection id="usage" title="Usage">
+        <Code>{`<Button variant="primary" size="lg">
+  Get started <ArrowRight />
+</Button>`}</Code>
+      </DocSection>
+
+      <DocSection id="variants" title="Variants">
         <Row>
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -23,20 +43,18 @@ export default function ButtonDocs() {
           <Button variant="destructive">Destructive</Button>
           <Button variant="link">Link</Button>
         </Row>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="space-y-6">
-        <SectionLabel>Sizes</SectionLabel>
+      <DocSection id="sizes" title="Sizes">
         <Row align="end">
-          <Button  variant="primary" size="sm">Small</Button>
-          <Button  variant="primary" size="default">Default</Button>
-          <Button  variant="primary" size="lg">Large</Button>
+          <Button variant="primary" size="sm">Small</Button>
+          <Button variant="primary" size="default">Default</Button>
+          <Button variant="primary" size="lg">Large</Button>
           <Button variant="primary" size="xl">Extra Large</Button>
         </Row>
-      </section>
+      </DocSection>
 
-      <section id="icons" className="space-y-6">
-        <SectionLabel>With Icons</SectionLabel>
+      <DocSection id="icons" title="With Icons">
         <Row>
           <Button variant="primary">Get started <ArrowRight /></Button>
           <Button variant="outline"><Mail /> Contact us</Button>
@@ -44,60 +62,43 @@ export default function ButtonDocs() {
           <Button variant="secondary" size="icon" aria-label="Send email"><Mail /></Button>
           <Button variant="outline" size="icon-sm" aria-label="Delete"><Trash2 /></Button>
         </Row>
-      </section>
+      </DocSection>
 
-      <section id="loading" className="space-y-6">
-        <SectionLabel>Loading state</SectionLabel>
+      <DocSection id="loading" title="Loading">
         <Row>
           <Button loading>Saving…</Button>
           <Button variant="secondary" loading>Processing</Button>
           <Button variant="outline" loading>Loading</Button>
         </Row>
-      </section>
+      </DocSection>
 
-      <section id="disabled" className="space-y-6">
-        <SectionLabel>Disabled state</SectionLabel>
+      <DocSection id="disabled" title="Disabled">
         <Row>
           <Button disabled>Default</Button>
           <Button variant="secondary" disabled>Secondary</Button>
           <Button variant="outline" disabled>Outline</Button>
           <Button variant="ghost" disabled>Ghost</Button>
         </Row>
-      </section>
+      </DocSection>
 
-      <section id="full-width" className="space-y-6">
-        <SectionLabel>Full width</SectionLabel>
+      <DocSection id="full-width" title="Full Width">
         <div className="max-w-xs space-y-3">
-          <Button  variant="primary" className="w-full">Let's chat</Button>
-          <Button  variant="outline" className="w-full">Find out how <ArrowRight /></Button>
+          <Button variant="primary" className="w-full">Let's chat</Button>
+          <Button variant="outline" className="w-full">Find out how <ArrowRight /></Button>
         </div>
-      </section>
+      </DocSection>
 
-      <hr className="border-border" />
+      <DocSection id="api" title="API Reference">
+        <PropsTable props={[
+          { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link'", default: "'primary'" },
+          { name: 'size', type: "'sm' | 'default' | 'lg' | 'xl' | 'icon' | 'icon-sm'", default: "'default'" },
+          { name: 'loading', type: 'boolean', default: 'false' },
+          { name: 'disabled', type: 'boolean', default: 'false' },
+          { name: 'className', type: 'string', default: '—' },
+        ]} />
+      </DocSection>
 
-      <section id="usage" className="space-y-4">
-        <SectionLabel>Usage</SectionLabel>
-        <Code>{`import { Button } from '@aplo/ui'
-
-// Variants: primary | secondary | outline | ghost | destructive | link
-// Sizes:    sm | default | lg | xl | icon | icon-sm
-
-<Button variant="primary" size="lg">
-  Get started <ArrowRight />
-</Button>
-
-<Button loading>Saving…</Button>`}</Code>
-      </section>
-
-    </Container>
-  )
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-      {children}
-    </h2>
+    </DocPage>
   )
 }
 

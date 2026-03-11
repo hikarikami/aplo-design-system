@@ -1,67 +1,78 @@
-import { Code, Container, PageHeader, Switch } from '@aplo/ui'
+import { Code, PageHeader, Switch } from '@aplo/ui'
+import { DocPage, DocSection } from '@/components/doc-page'
+import { PropsTable } from '@/components/props-table'
+
+const TOC = [
+  { id: 'installation', label: 'Installation' },
+  { id: 'usage', label: 'Usage' },
+  { id: 'sizes', label: 'Sizes' },
+  { id: 'states', label: 'States' },
+  { id: 'disabled', label: 'Disabled' },
+  { id: 'api', label: 'API Reference' },
+]
 
 export default function SwitchDocs() {
   return (
-    <Container className="py-16 space-y-16">
+    <DocPage toc={TOC}>
 
       <PageHeader
-        id="switch"
         title="Switch"
-        description={<>An accessible toggle switch built on a <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{'<button role="switch">'}</code>. Supports controlled and uncontrolled usage, two sizes, and motion-aware transitions.</>}
+        description="An accessible toggle switch built on Base UI. Supports controlled and uncontrolled usage, two sizes, and motion-aware transitions."
       />
 
-      <hr className="border-border" />
+      <DocSection id="installation" title="Installation">
+        <Code language="ts">{`import { Switch } from '@aplo/ui'`}</Code>
+      </DocSection>
 
-      <section id="sizes" className="space-y-6">
-        <SectionLabel>Sizes</SectionLabel>
-        <Row>
-          <LabelledSwitch label="Default" size="default" defaultChecked />
-          <LabelledSwitch label="Small" size="sm" defaultChecked />
-        </Row>
-      </section>
-
-      <section id="states" className="space-y-6">
-        <SectionLabel>States</SectionLabel>
-        <Row>
-          <LabelledSwitch label="Off" />
-          <LabelledSwitch label="On" defaultChecked />
-          <LabelledSwitch label="Small off" size="sm" />
-          <LabelledSwitch label="Small on" size="sm" defaultChecked />
-        </Row>
-      </section>
-
-      <section id="disabled" className="space-y-6">
-        <SectionLabel>Disabled</SectionLabel>
-        <Row>
-          <LabelledSwitch label="Disabled off" disabled />
-          <LabelledSwitch label="Disabled on" defaultChecked disabled />
-        </Row>
-      </section>
-
-      <hr className="border-border" />
-
-      <section id="usage" className="space-y-4">
-        <SectionLabel>Usage</SectionLabel>
-        <Code>{`import { Switch } from '@aplo/ui'
-
-// Uncontrolled
+      <DocSection id="usage" title="Usage">
+        <Code>{`// Uncontrolled
 <Switch defaultChecked />
 
 // Controlled
 const [enabled, setEnabled] = useState(false)
 <Switch checked={enabled} onCheckedChange={setEnabled} />
 
-// Sizes: default | sm
-<Switch size="sm" />
-
 // With a label
 <label className="flex items-center gap-2">
   <Switch checked={enabled} onCheckedChange={setEnabled} />
   <span className="text-sm">Enable notifications</span>
 </label>`}</Code>
-      </section>
+      </DocSection>
 
-    </Container>
+      <DocSection id="sizes" title="Sizes">
+        <Row>
+          <LabelledSwitch label="Default" size="default" defaultChecked />
+          <LabelledSwitch label="Small" size="sm" defaultChecked />
+        </Row>
+      </DocSection>
+
+      <DocSection id="states" title="States">
+        <Row>
+          <LabelledSwitch label="Off" />
+          <LabelledSwitch label="On" defaultChecked />
+          <LabelledSwitch label="Small off" size="sm" />
+          <LabelledSwitch label="Small on" size="sm" defaultChecked />
+        </Row>
+      </DocSection>
+
+      <DocSection id="disabled" title="Disabled">
+        <Row>
+          <LabelledSwitch label="Disabled off" disabled />
+          <LabelledSwitch label="Disabled on" defaultChecked disabled />
+        </Row>
+      </DocSection>
+
+      <DocSection id="api" title="API Reference">
+        <PropsTable props={[
+          { name: 'checked', type: 'boolean', default: '—' },
+          { name: 'defaultChecked', type: 'boolean', default: 'false' },
+          { name: 'onCheckedChange', type: '(checked: boolean) => void', default: '—' },
+          { name: 'size', type: "'default' | 'sm'", default: "'default'" },
+          { name: 'disabled', type: 'boolean', default: 'false' },
+        ]} />
+      </DocSection>
+
+    </DocPage>
   )
 }
 
@@ -74,14 +85,6 @@ function LabelledSwitch({
       <Switch {...props} />
       <span className="text-sm text-muted-foreground">{label}</span>
     </label>
-  )
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-      {children}
-    </h2>
   )
 }
 

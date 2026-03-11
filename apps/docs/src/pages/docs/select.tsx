@@ -1,22 +1,57 @@
 import * as React from 'react'
-import { Container, PageHeader, Select, SelectItem, SelectGroup } from '@aplo/ui'
+import { Code, PageHeader, Select, SelectGroup, SelectItem } from '@aplo/ui'
+import { DocPage, DocSection } from '@/components/doc-page'
+import { PropsTable } from '@/components/props-table'
+
+const TOC = [
+  { id: 'installation', label: 'Installation' },
+  { id: 'usage', label: 'Usage' },
+  { id: 'default', label: 'Default' },
+  { id: 'sizes', label: 'Sizes' },
+  { id: 'groups', label: 'Groups' },
+  { id: 'states', label: 'Description & Error' },
+  { id: 'disabled', label: 'Disabled' },
+  { id: 'controlled', label: 'Controlled' },
+  { id: 'api', label: 'API Reference' },
+]
 
 export default function SelectDocs() {
   const [controlled, setControlled] = React.useState<string | null>(null)
 
   return (
-    <Container className="py-16 space-y-16">
+    <DocPage toc={TOC}>
 
       <PageHeader
-        id="select"
         title="Select"
-        description={<>A dropdown built on Base UI's headless Select. Trigger, popup, and items are fully keyboard-navigable and ARIA-wired. Sized to match <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Input</code>.</>}
+        description="A dropdown built on Base UI's headless Select. Trigger, popup, and items are fully keyboard-navigable and ARIA-wired. Sized to match Input."
       />
 
-      <hr className="border-border" />
+      <DocSection id="installation" title="Installation">
+        <Code language="ts">{`import { Select, SelectItem, SelectGroup } from '@aplo/ui'`}</Code>
+      </DocSection>
 
-      <section id="default" className="space-y-6">
-        <SectionLabel>Default</SectionLabel>
+      <DocSection id="usage" title="Usage">
+        <Code>{`<Select label="Country">
+  <SelectItem value="au">Australia</SelectItem>
+  <SelectItem value="us">United States</SelectItem>
+</Select>
+
+// Controlled
+const [value, setValue] = useState<string | null>(null)
+<Select label="Plan" value={value ?? undefined} onValueChange={setValue}>
+  <SelectItem value="free">Free</SelectItem>
+  <SelectItem value="pro">Pro</SelectItem>
+</Select>
+
+// With groups
+<Select label="Region">
+  <SelectGroup label="Asia Pacific">
+    <SelectItem value="au">Australia</SelectItem>
+  </SelectGroup>
+</Select>`}</Code>
+      </DocSection>
+
+      <DocSection id="default" title="Default">
         <Grid>
           <Select label="Country">
             <SelectItem value="au">Australia</SelectItem>
@@ -36,12 +71,9 @@ export default function SelectDocs() {
             <SelectItem value="critical">Critical</SelectItem>
           </Select>
         </Grid>
-      </section>
+      </DocSection>
 
-      <hr className="border-border" />
-
-      <section id="sizes" className="space-y-6">
-        <SectionLabel>Sizes</SectionLabel>
+      <DocSection id="sizes" title="Sizes">
         <Grid>
           <Select label="Small" size="sm">
             <SelectItem value="a">Option A</SelectItem>
@@ -56,12 +88,9 @@ export default function SelectDocs() {
             <SelectItem value="b">Option B</SelectItem>
           </Select>
         </Grid>
-      </section>
+      </DocSection>
 
-      <hr className="border-border" />
-
-      <section id="groups" className="space-y-6">
-        <SectionLabel>Groups</SectionLabel>
+      <DocSection id="groups" title="Groups">
         <Grid>
           <Select label="Region">
             <SelectGroup label="Asia Pacific">
@@ -76,37 +105,24 @@ export default function SelectDocs() {
             </SelectGroup>
           </Select>
         </Grid>
-      </section>
+      </DocSection>
 
-      <hr className="border-border" />
-
-      <section id="states" className="space-y-6">
-        <SectionLabel>Description &amp; error</SectionLabel>
+      <DocSection id="states" title="Description &amp; Error">
         <Grid>
-          <Select
-            label="Timezone"
-            description="Used to localise notifications and reports."
-          >
+          <Select label="Timezone" description="Used to localise notifications and reports.">
             <SelectItem value="utc">UTC</SelectItem>
             <SelectItem value="aest">AEST (UTC+10)</SelectItem>
             <SelectItem value="est">EST (UTC−5)</SelectItem>
           </Select>
-          <Select
-            label="Role"
-            error="You don't have permission to change this."
-            defaultValue="viewer"
-          >
+          <Select label="Role" error="You don't have permission to change this." defaultValue="viewer">
             <SelectItem value="viewer">Viewer</SelectItem>
             <SelectItem value="editor">Editor</SelectItem>
             <SelectItem value="admin">Admin</SelectItem>
           </Select>
         </Grid>
-      </section>
+      </DocSection>
 
-      <hr className="border-border" />
-
-      <section id="disabled" className="space-y-6">
-        <SectionLabel>Disabled</SectionLabel>
+      <DocSection id="disabled" title="Disabled">
         <Grid>
           <Select label="Locked field" disabled defaultValue="pro">
             <SelectItem value="free">Free</SelectItem>
@@ -118,18 +134,11 @@ export default function SelectDocs() {
             <SelectItem value="c">Available</SelectItem>
           </Select>
         </Grid>
-      </section>
+      </DocSection>
 
-      <hr className="border-border" />
-
-      <section id="controlled" className="space-y-6">
-        <SectionLabel>Controlled</SectionLabel>
+      <DocSection id="controlled" title="Controlled">
         <div className="max-w-sm space-y-3">
-          <Select
-            label="Fruit"
-            value={controlled ?? undefined}
-            onValueChange={setControlled}
-          >
+          <Select label="Fruit" value={controlled ?? undefined} onValueChange={setControlled}>
             <SelectItem value="apple">Apple</SelectItem>
             <SelectItem value="banana">Banana</SelectItem>
             <SelectItem value="mango">Mango</SelectItem>
@@ -138,24 +147,27 @@ export default function SelectDocs() {
             value: {controlled ? `"${controlled}"` : 'null'}
           </p>
         </div>
-      </section>
+      </DocSection>
 
-    </Container>
-  )
-}
+      <DocSection id="api" title="API Reference">
+        <PropsTable props={[
+          { name: 'label', type: 'string', default: '—' },
+          { name: 'placeholder', type: 'string', default: "'Select…'" },
+          { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'" },
+          { name: 'value', type: 'string | undefined', default: '—' },
+          { name: 'defaultValue', type: 'string', default: '—' },
+          { name: 'onValueChange', type: '(value: string) => void', default: '—' },
+          { name: 'description', type: 'string', default: '—' },
+          { name: 'error', type: 'string', default: '—' },
+          { name: 'disabled', type: 'boolean', default: 'false' },
+          { name: 'children', type: 'ReactNode', default: '—' },
+        ]} />
+      </DocSection>
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-      {children}
-    </h2>
+    </DocPage>
   )
 }
 
 function Grid({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
-      {children}
-    </div>
-  )
+  return <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">{children}</div>
 }
