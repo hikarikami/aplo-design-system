@@ -1,5 +1,5 @@
 import { Moon } from 'lucide-react'
-import { Button, Container, Navbar, PageHeader } from '@aplo/ui'
+import { Button, Code, Container, Navbar, PageHeader } from '@aplo/ui'
 
 export default function NavbarDocs() {
   return (
@@ -72,8 +72,7 @@ export default function NavbarDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { Navbar } from '@aplo/ui'
+        <Code>{`import { Navbar } from '@aplo/ui'
 
 // left  — logo, brand text, nav links
 // right — actions, toggles, auth buttons
@@ -86,8 +85,7 @@ export default function NavbarDocs() {
       <Button size="sm">Get started</Button>
     </>
   }
-/>`}
-        </pre>
+/>`}</Code>
       </section>
 
     </Container>

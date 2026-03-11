@@ -1,4 +1,4 @@
-import { Container, PageHeader, Switch } from '@aplo/ui'
+import { Code, Container, PageHeader, Switch } from '@aplo/ui'
 
 export default function SwitchDocs() {
   return (
@@ -42,8 +42,7 @@ export default function SwitchDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { Switch } from '@aplo/ui'
+        <Code>{`import { Switch } from '@aplo/ui'
 
 // Uncontrolled
 <Switch defaultChecked />
@@ -59,8 +58,7 @@ const [enabled, setEnabled] = useState(false)
 <label className="flex items-center gap-2">
   <Switch checked={enabled} onCheckedChange={setEnabled} />
   <span className="text-sm">Enable notifications</span>
-</label>`}
-        </pre>
+</label>`}</Code>
       </section>
 
     </Container>

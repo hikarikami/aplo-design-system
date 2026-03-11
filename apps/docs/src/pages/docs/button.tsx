@@ -1,5 +1,5 @@
 import { ArrowRight, Mail, Trash2 } from 'lucide-react'
-import { Button, Container, PageHeader } from '@aplo/ui'
+import { Button, Code, Container, PageHeader } from '@aplo/ui'
 
 export default function ButtonDocs() {
   return (
@@ -77,8 +77,7 @@ export default function ButtonDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { Button } from '@aplo/ui'
+        <Code>{`import { Button } from '@aplo/ui'
 
 // Variants: primary | secondary | outline | ghost | destructive | link
 // Sizes:    sm | default | lg | xl | icon | icon-sm
@@ -87,8 +86,7 @@ export default function ButtonDocs() {
   Get started <ArrowRight />
 </Button>
 
-<Button loading>Saving…</Button>`}
-        </pre>
+<Button loading>Saving…</Button>`}</Code>
       </section>
 
     </Container>

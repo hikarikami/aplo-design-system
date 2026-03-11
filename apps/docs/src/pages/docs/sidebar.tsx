@@ -1,4 +1,4 @@
-import { Container, PageHeader, Sidebar } from '@aplo/ui'
+import { Code, Container, PageHeader, Sidebar } from '@aplo/ui'
 
 export default function SidebarDocs() {
   return (
@@ -57,8 +57,7 @@ export default function SidebarDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { Sidebar } from '@aplo/ui'
+        <Code>{`import { Sidebar } from '@aplo/ui'
 
 // Wrap your page in a flex container, place Sidebar as a sibling to main.
 // It sticks to the top of the viewport and collapses to an icon rail.
@@ -74,8 +73,7 @@ export default function SidebarDocs() {
   <main className="flex-1 min-w-0">
     {/* page content */}
   </main>
-</div>`}
-        </pre>
+</div>`}</Code>
       </section>
 
     </Container>

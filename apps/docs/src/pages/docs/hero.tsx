@@ -1,4 +1,4 @@
-import { Hero, Container, PageHeader, Button } from '@aplo/ui'
+import { Code, Hero, Container, PageHeader, Button } from '@aplo/ui'
 import { ArrowRight } from 'lucide-react'
 
 export default function HeroDocs() {
@@ -70,8 +70,7 @@ export default function HeroDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { Hero, Button } from '@aplo/ui'
+        <Code>{`import { Hero, Button } from '@aplo/ui'
 import { ArrowRight } from 'lucide-react'
 
 // Plain wrapper — no background effect
@@ -94,8 +93,7 @@ import { ArrowRight } from 'lucide-react'
       Get started <ArrowRight />
     </Button>
   </div>
-</Hero>`}
-        </pre>
+</Hero>`}</Code>
       </section>
 
       <section id="notes" className="space-y-4">

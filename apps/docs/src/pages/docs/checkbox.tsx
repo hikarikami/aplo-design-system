@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, PageHeader, Checkbox } from '@aplo/ui'
+import { Code, Container, PageHeader, Checkbox } from '@aplo/ui'
 
 export default function CheckboxDocs() {
   const [controlled, setControlled] = React.useState(false)
@@ -57,8 +57,7 @@ export default function CheckboxDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { Checkbox } from '@aplo/ui'
+        <Code>{`import { Checkbox } from '@aplo/ui'
 
 // Uncontrolled
 <Checkbox defaultChecked />
@@ -78,8 +77,7 @@ const [checked, setChecked] = useState(false)
 <label className="flex items-center gap-2">
   <Checkbox checked={checked} onCheckedChange={setChecked} />
   <span className="text-sm">Accept terms and conditions</span>
-</label>`}
-        </pre>
+</label>`}</Code>
       </section>
 
     </Container>

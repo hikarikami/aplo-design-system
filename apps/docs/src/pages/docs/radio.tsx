@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, PageHeader, RadioGroup, Radio, RadioCard } from '@aplo/ui'
+import { Code, Container, PageHeader, RadioGroup, Radio, RadioCard } from '@aplo/ui'
 
 export default function RadioDocs() {
   const [plan, setPlan] = React.useState('pro')
@@ -235,8 +235,7 @@ export default function RadioDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { RadioGroup, Radio, RadioCard } from '@aplo/ui'
+        <Code>{`import { RadioGroup, Radio, RadioCard } from '@aplo/ui'
 
 // Uncontrolled dot radios
 <RadioGroup defaultValue="b">
@@ -274,8 +273,7 @@ const [value, setValue] = useState('b')
 </RadioGroup>
 
 // RadioCard — custom startContent (overrides image)
-<RadioCard value="custom" title="Custom" startContent={<MyIcon />} />`}
-        </pre>
+<RadioCard value="custom" title="Custom" startContent={<MyIcon />} />`}</Code>
       </section>
 
     </Container>

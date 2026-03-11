@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, FileUpload, PageHeader } from '@aplo/ui'
+import { Code, Container, FileUpload, PageHeader } from '@aplo/ui'
 
 export default function UploadDocs() {
   return (
@@ -48,8 +48,7 @@ export default function UploadDocs() {
 
       <section id="usage" className="space-y-4">
         <SectionLabel>Usage</SectionLabel>
-        <pre className="rounded-lg bg-card border border-border px-6 py-5 text-sm text-muted-foreground overflow-x-auto leading-relaxed">
-          {`import { FileUpload } from '@aplo/ui'
+        <Code>{`import { FileUpload } from '@aplo/ui'
 
 // Minimal — uses default accept (JPEG/PNG/WebP) and 10 MB cap
 <FileUpload onFileSelect={(file) => console.log(file)} />
@@ -64,8 +63,7 @@ export default function UploadDocs() {
 />
 
 // Show a validation error externally
-<FileUpload error="That file is too large." />`}
-        </pre>
+<FileUpload error="That file is too large." />`}</Code>
       </section>
 
     </Container>
