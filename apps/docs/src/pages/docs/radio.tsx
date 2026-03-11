@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Zap, Rocket, Building2, Palette, Code2, BarChart3 } from 'lucide-react'
 import { Code, PageHeader, Radio, RadioCard, RadioGroup } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
@@ -12,12 +13,15 @@ const TOC = [
   { id: 'orientation', label: 'Orientation' },
   { id: 'disabled', label: 'Disabled' },
   { id: 'radio-card', label: 'RadioCard' },
+  { id: 'radio-card-icons', label: 'RadioCard with Icons' },
   { id: 'api', label: 'API Reference' },
 ]
 
 export default function RadioDocs() {
   const [plan, setPlan] = React.useState('pro')
   const [provider, setProvider] = React.useState('openai')
+  const [iconList, setIconList] = React.useState('pro')
+  const [iconCard, setIconCard] = React.useState('design')
 
   return (
     <DocPage toc={TOC}>
@@ -111,6 +115,88 @@ const [value, setValue] = useState('b')
         </div>
       </DocSection>
 
+      <DocSection id="radio-card-icons" title="RadioCard with Icons">
+        <p className="text-sm text-muted-foreground">
+          Use <code className="text-xs bg-muted px-1.5 py-0.5 rounded">startContent</code> to pass any ReactNode into the thumbnail slot — icons, avatars, or custom visuals. Pass an image URL to <code className="text-xs bg-muted px-1.5 py-0.5 rounded">image</code> for photo thumbnails.
+        </p>
+
+        <div className="space-y-4">
+          <Preview centered={false}>
+            <div className="w-full max-w-sm">
+              <p className="text-xs text-muted-foreground mb-4">List layout with icons</p>
+              <RadioGroup value={iconList} onValueChange={setIconList}>
+                <RadioCard
+                  value="starter"
+                  title="Starter"
+                  description="Up to 3 projects, 1 GB storage"
+                  startContent={<IconThumb color="text-amber-500 bg-amber-500/10"><Zap className="size-4" /></IconThumb>}
+                />
+                <RadioCard
+                  value="pro"
+                  title="Pro"
+                  description="Unlimited projects, 50 GB storage"
+                  startContent={<IconThumb color="text-primary bg-primary/10"><Rocket className="size-4" /></IconThumb>}
+                />
+                <RadioCard
+                  value="enterprise"
+                  title="Enterprise"
+                  description="Custom limits, SSO, dedicated support"
+                  startContent={<IconThumb color="text-violet-500 bg-violet-500/10"><Building2 className="size-4" /></IconThumb>}
+                />
+              </RadioGroup>
+            </div>
+          </Preview>
+
+          <Preview centered={false}>
+            <div className="w-full">
+              <p className="text-xs text-muted-foreground mb-4">Card layout with icons</p>
+              <RadioGroup value={iconCard} onValueChange={setIconCard} orientation="horizontal" className="grid grid-cols-3 gap-3">
+                <RadioCard
+                  layout="card"
+                  value="design"
+                  title="Design"
+                  description="UI & visual assets"
+                  startContent={<IconThumb color="text-pink-500 bg-pink-500/10" large><Palette className="size-5" /></IconThumb>}
+                />
+                <RadioCard
+                  layout="card"
+                  value="engineering"
+                  title="Engineering"
+                  description="Code & infrastructure"
+                  startContent={<IconThumb color="text-sky-500 bg-sky-500/10" large><Code2 className="size-5" /></IconThumb>}
+                />
+                <RadioCard
+                  layout="card"
+                  value="analytics"
+                  title="Analytics"
+                  description="Data & reporting"
+                  startContent={<IconThumb color="text-green-500 bg-green-500/10" large><BarChart3 className="size-5" /></IconThumb>}
+                />
+              </RadioGroup>
+            </div>
+          </Preview>
+
+          <Code>{`// startContent — pass any ReactNode into the thumbnail slot
+<RadioCard
+  value="pro"
+  title="Pro"
+  description="Unlimited projects, 50 GB storage"
+  startContent={
+    <div className="size-full flex items-center justify-center bg-primary/10 text-primary rounded-md">
+      <Rocket className="size-4" />
+    </div>
+  }
+/>
+
+// image — URL renders as a rounded thumbnail
+<RadioCard
+  value="photo"
+  title="Photo"
+  image="https://example.com/thumbnail.jpg"
+/>`}</Code>
+        </div>
+      </DocSection>
+
       <DocSection id="api" title="API Reference">
         <div className="space-y-4">
           <p className="text-sm font-medium text-foreground">RadioGroup</p>
@@ -118,9 +204,25 @@ const [value, setValue] = useState('b')
           <p className="text-sm font-medium text-foreground pt-2">Radio</p>
           <PropsTable props={[{ name: 'value', type: 'string', default: '—' }, { name: 'size', type: "'default' | 'sm'", default: "'default'" }, { name: 'indicator', type: "'dot' | 'check'", default: "'dot'" }, { name: 'disabled', type: 'boolean', default: 'false' }]} />
           <p className="text-sm font-medium text-foreground pt-2">RadioCard</p>
-          <PropsTable props={[{ name: 'value', type: 'string', default: '—' }, { name: 'title', type: 'string', default: '—' }, { name: 'description', type: 'string', default: '—' }, { name: 'image', type: 'string', default: '—' }, { name: 'layout', type: "'list' | 'card'", default: "'list'" }, { name: 'startContent', type: 'ReactNode', default: '—' }, { name: 'disabled', type: 'boolean', default: 'false' }]} />
+          <PropsTable props={[{ name: 'value', type: 'string', default: '—' }, { name: 'title', type: 'string', default: '—' }, { name: 'description', type: 'string', default: '—' }, { name: 'image', type: 'string', default: '—' }, { name: 'startContent', type: 'ReactNode', default: '—' }, { name: 'layout', type: "'list' | 'card'", default: "'list'" }, { name: 'disabled', type: 'boolean', default: 'false' }]} />
         </div>
       </DocSection>
     </DocPage>
+  )
+}
+
+function IconThumb({
+  children,
+  color,
+  large = false,
+}: {
+  children: React.ReactNode
+  color: string
+  large?: boolean
+}) {
+  return (
+    <div className={`size-full flex items-center justify-center rounded-md ${color} ${large ? 'text-lg' : ''}`}>
+      {children}
+    </div>
   )
 }
