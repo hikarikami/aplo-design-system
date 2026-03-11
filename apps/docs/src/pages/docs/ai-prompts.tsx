@@ -5,7 +5,7 @@ const TOC = [
   { id: 'overview', label: 'Overview' },
   { id: 'system-prompt', label: 'System Prompt' },
   { id: 'project-setup', label: 'New Project Setup' },
-  { id: 'feature-prompt', label: 'Building Features' },
+  { id: 'feature-prompt', label: 'Feature Prompts' },
   { id: 'claude-md', label: 'CLAUDE.md Template' },
 ]
 
@@ -33,7 +33,7 @@ export default function AiPromptsDocs() {
         <p className="text-sm text-muted-foreground">
           Paste this into any AI assistant at the start of a session, or save it as a project-level instruction in Cursor / Claude Code.
         </p>
-        <Code language="ts" showCopy>{`You are building UI for the Aplo design system.
+        <Code showCopy>{`You are building UI for the Aplo design system.
 
 ## Stack
 - React 18 + TypeScript + Vite
@@ -49,9 +49,9 @@ export default function AiPromptsDocs() {
 
 ## Component Usage Rules
 - Import from @aplo/ui:
-  import { Button, Input, Select, Checkbox, Switch, Radio, RadioGroup,
-    RadioCard, Sidebar, Navbar, Container, PageHeader, Stack, FileUpload,
-    LottieIcon, Code } from '@aplo/ui'
+  import { Accordion, Button, Input, Select, Checkbox, Switch,
+    Radio, RadioGroup, RadioCard, Sidebar, Navbar, Hero, Container,
+    PageHeader, Stack, FileUpload, LottieIcon, Code } from '@aplo/ui'
 - Never write raw <button>, <input>, <select>, or <input type="checkbox/radio">
 - Icons: lucide-react only. No other icon libraries.
 - Colors: semantic Tailwind classes only (bg-primary, text-foreground,
@@ -60,8 +60,9 @@ export default function AiPromptsDocs() {
 
 ## Layout Rules
 - Wrap all page content in Container (max-w-page = 77.5rem, px-6).
-- App root must be wrapped in AploProvider.
+- App root must be wrapped in AploProvider (= ThemeProvider + MotionProvider).
 - App shell: Navbar → flex row → Sidebar + <main>.
+- Hero is full-bleed — never nest inside Container.
 
 ## Consistency Rules
 - Prefer existing patterns over new ones.
@@ -97,6 +98,7 @@ export default function AiPromptsDocs() {
 4. In globals.css, import Tailwind and the Aplo theme:
    @import "tailwindcss";
    @import "@aplo/ui/styles";
+   @source "./node_modules/@aplo/ui/dist";
 
 5. Scaffold the app shell with Navbar and a main content area using
    Container for horizontal constraints.
@@ -118,7 +120,7 @@ pnpm add @aplo/ui
 pnpm --filter @aplo/ui build`}</Code>
       </DocSection>
 
-      <DocSection id="feature-prompt" title="Building Features">
+      <DocSection id="feature-prompt" title="Feature Prompts">
         <p className="text-sm text-muted-foreground">
           Use these prompts mid-session when asking an AI to build a specific screen or feature.
         </p>
@@ -157,6 +159,35 @@ Use semantic HTML: <header>, <main>, <aside>, <nav>, <section>.`}</Code>
           </div>
 
           <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Landing / Hero Section</p>
+            <Code showCopy>{`Build a landing page hero section using @aplo/ui.
+
+Use:
+- Hero component with backgroundEffect="stipple-follow" for the globe background
+- Hero is full-bleed — do NOT wrap it in Container
+- Place content inside Hero using Container for padding constraints
+- Stack to isolate z-index if the Hero is followed by other sections
+
+Hero props to consider:
+- scaleCircle — makes the globe radius proportional to the container
+- globeRadius — explicit px size (overrides scaleCircle)
+- globeShadowAngle / globeShadowStrength — controls shadow direction and fade
+- Motion-off automatically degrades to a static snapshot (no manual gating needed)
+
+Example structure:
+<Stack>
+  <Hero backgroundEffect="stipple-follow" className="min-h-150">
+    <Container className="flex flex-col justify-center py-24">
+      <h1 className="text-5xl font-bold text-foreground">Heading</h1>
+      <p className="text-muted-foreground max-w-lg">Subheading</p>
+      <Button size="lg">Get started</Button>
+    </Container>
+  </Hero>
+  <section>…next section…</section>
+</Stack>`}</Code>
+          </div>
+
+          <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">New Component</p>
             <Code showCopy>{`Create a new [component name] component for @aplo/ui.
 
@@ -178,7 +209,7 @@ usage exactly to existing components like Button or Input.`}</Code>
         <p className="text-sm text-muted-foreground">
           Drop a <code className="text-xs bg-muted px-1.5 py-0.5 rounded">CLAUDE.md</code> file at your project root to make Claude Code follow these rules automatically in every session — no need to re-paste the system prompt.
         </p>
-        <Code language="ts" showCopy>{`# Project Rules
+        <Code showCopy>{`# Project Rules
 
 ## Stack
 - React 18 + TypeScript + Vite
@@ -195,15 +226,23 @@ usage exactly to existing components like Button or Input.`}</Code>
 - No inline style={{ color, background }} — use Tailwind classes
 - No framer-motion — use useMotion() from @aplo/ui for animation gating
 - Radius: rounded-md for interactive, rounded-lg for cards. Never larger.
+- Hero is full-bleed — never nest inside Container
 
 ## Layout
 - Wrap page content in <Container>
-- Wrap app root in <AploProvider>
+- Wrap app root in <AploProvider> (= ThemeProvider + MotionProvider combined)
 - App shell: Navbar → flex row → Sidebar + <main>
+- Use Stack around full-bleed sections to isolate z-index stacking
+
+## Available Components
+Accordion, Button, Checkbox, Code, Container, FileUpload, Hero, Input, Label,
+LottieIcon, Navbar, PageHeader, Radio, RadioCard, RadioGroup, Select, Sidebar,
+Stack, Switch
 
 ## Workflow
-- Run \`pnpm dev\` to start the dev server
-- Run \`pnpm build\` to build (builds @aplo/ui then docs)
+- \`pnpm dev\` — start the dev server
+- \`pnpm build\` — build @aplo/ui then docs
+- \`pnpm gen:props\` — regenerate props tables after changing component interfaces
 - Check existing @aplo/ui components before writing custom markup`}</Code>
 
         <p className="text-sm text-muted-foreground">
