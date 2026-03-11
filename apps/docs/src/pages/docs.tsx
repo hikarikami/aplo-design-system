@@ -17,6 +17,7 @@ const COMPONENTS = [
 ]
 
 const GUIDES = [
+  { label: 'Getting Started', to: '/docs/getting-started' },
   { label: 'AI Prompts', to: '/docs/ai-prompts' },
   { label: 'Theming & Motion', to: '/docs/theming' },
 ]

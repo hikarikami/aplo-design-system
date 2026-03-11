@@ -16,6 +16,7 @@ import HeroDocs from '@/pages/docs/hero'
 import AiPromptsDocs from '@/pages/docs/ai-prompts'
 import CodeDocs from '@/pages/docs/code'
 import ThemingDocs from '@/pages/docs/theming'
+import GettingStartedDocs from '@/pages/docs/getting-started'
 
 export default function App() {
   return (
@@ -27,7 +28,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/docs" element={<DocsLayout />}>
-          <Route index element={<Navigate to="button" replace />} />
+          <Route index element={<Navigate to="getting-started" replace />} />
           <Route path="button"  element={<ButtonDocs />} />
           <Route path="navbar"  element={<NavbarDocs />} />
           <Route path="sidebar" element={<SidebarDocs />} />
@@ -39,8 +40,9 @@ export default function App() {
           <Route path="select"   element={<SelectDocs />} />
           <Route path="hero"     element={<HeroDocs />} />
           <Route path="ai-prompts" element={<AiPromptsDocs />} />
-          <Route path="code"       element={<CodeDocs />} />
-          <Route path="theming"    element={<ThemingDocs />} />
+          <Route path="code"            element={<CodeDocs />} />
+          <Route path="theming"         element={<ThemingDocs />} />
+          <Route path="getting-started" element={<GettingStartedDocs />} />
         </Route>
       </Routes>
     </div>
