@@ -3,6 +3,7 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { Button, Navbar, Switch, useTheme, useMotion, cn } from '@aplo/ui'
 import HomePage from '@/pages/home'
 import DocsLayout from '@/pages/docs'
+import AccordionDocs from '@/pages/docs/accordion'
 import ButtonDocs from '@/pages/docs/button'
 import NavbarDocs from '@/pages/docs/navbar'
 import SidebarDocs from '@/pages/docs/sidebar'
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/docs" element={<DocsLayout />}>
           <Route index element={<Navigate to="getting-started" replace />} />
+          <Route path="accordion" element={<AccordionDocs />} />
           <Route path="button"  element={<ButtonDocs />} />
           <Route path="navbar"  element={<NavbarDocs />} />
           <Route path="sidebar" element={<SidebarDocs />} />

@@ -1,4 +1,5 @@
 // Central re-export barrel — import any component from '@aplo/ui'
+export * from './accordion'
 export * from './button'
 export * from './container'
 export * from './hero'

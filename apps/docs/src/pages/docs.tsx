@@ -3,6 +3,7 @@ import { Sidebar } from '@aplo/ui'
 import { cn } from '@aplo/ui'
 
 const COMPONENTS = [
+  { label: 'Accordion', to: '/docs/accordion' },
   { label: 'Button',    to: '/docs/button'    },
   { label: 'Checkbox',  to: '/docs/checkbox'  },
   { label: 'Code',      to: '/docs/code'      },
@@ -42,9 +43,9 @@ function NavItem({ label, to }: { label: string; to: string }) {
 
 function DocsSidebarContent() {
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-8">
       <div className="space-y-1">
-        <p className="px-3 mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <p className="px-3 mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Guides
         </p>
         {GUIDES.map(({ label, to }) => (
@@ -53,7 +54,7 @@ function DocsSidebarContent() {
       </div>
 
       <div className="space-y-1">
-        <p className="px-3 mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <p className="px-3 mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Components
         </p>
         {COMPONENTS.map(({ label, to }) => (

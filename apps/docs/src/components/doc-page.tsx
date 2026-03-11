@@ -40,7 +40,7 @@ export function DocPage({ toc, children }: DocPageProps) {
 
       <aside className="hidden xl:block w-44 shrink-0">
         <div className="sticky top-20 space-y-1.5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+          <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">
             On This Page
           </p>
           {toc.map(({ id, label }) => (
