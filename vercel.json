@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm build:ui && pnpm build:docs",
+  "outputDirectory": "apps/docs/dist",
+  "installCommand": "pnpm install"
+}

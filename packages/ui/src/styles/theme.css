@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* 1. Variants live at the top level, NOT inside @theme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 2. Keyframes also live at the top level */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes march {
+  from { stroke-dashoffset: 16; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* 3. The @theme block ONLY contains custom properties */
+@theme {
+  --color-background: hsl(0 0% 98%);
+  --color-foreground: hsl(240 5% 10%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(240 5% 10%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(240 5% 10%);
+  --color-primary: hsl(179 100% 21%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(240 5% 92%);
+  --color-secondary-foreground: hsl(240 5% 15%);
+  --color-muted: hsl(240 5% 94%);
+  --color-muted-foreground: hsl(240 4% 46%);
+  --color-accent: hsl(183 62% 93%);
+  --color-accent-foreground: hsl(183 62% 18%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(240 5% 88%);
+  --color-input: hsl(240 5% 88%);
+  --color-ring: hsl(179 100% 21%);
+
+  --ripple-color: 0, 107, 105;
+
+  /* Aplo palette — lighter teal shades (100–400) + dark surfaces (500–900) */
+  --color-aplo-100: hsl(179 80% 88%);
+  --color-aplo-200: hsl(179 70% 74%);
+  --color-aplo-300: hsl(179 65% 55%);
+  --color-aplo-400: hsl(179 60% 42%);
+  --color-aplo-500: #3a3a46;
+  --color-aplo-600: #2e2e37;
+  --color-aplo-700: #25252c;
+  --color-aplo-800: #1d1d22;
+  --color-aplo-900: #161619;
+  --color-aplo-accent: #006b69;
+  --color-aplo-accent-hover: #135252;
+
+  /* Radius and Fonts */
+  --radius-lg: 0.375rem;
+  --radius-md: calc(var(--radius-lg) - 2px);
+  --radius-sm: calc(var(--radius-lg) - 4px);
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-march: march 1s linear infinite;
+}
+
+/* 4. Dark Mode overrides — plain selector so unlayered CSS overrides @layer theme */
+.dark {
+  --color-background: hsl(240 5% 9%);
+  --color-foreground: hsl(0 0% 96%);
+  --color-card: hsl(240 5% 12%);
+  --color-card-foreground: hsl(0 0% 96%);
+  --color-popover: hsl(240 5% 12%);
+  --color-popover-foreground: hsl(0 0% 96%);
+  --color-secondary: hsl(240 5% 18%);
+  --color-secondary-foreground: hsl(0 0% 88%);
+  --color-muted: hsl(240 5% 16%);
+  --color-muted-foreground: hsl(240 4% 55%);
+  --color-accent: hsl(183 40% 18%);
+  --color-accent-foreground: hsl(183 62% 72%);
+  --color-border: hsl(240 5% 20%);
+  --color-input: hsl(240 5% 20%);
+  --color-ring: hsl(179 65% 55%);
+  --ripple-color: 55, 190, 183;
+}
+
+/* 5. Utilities */
+@utility max-w-page {
+  max-width: 77.5rem;
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
+}
