@@ -130,7 +130,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }}
         {...props}
       >
-        <span className="relative z-[2] inline-flex items-center gap-2">
+        <span className="relative z-2 inline-flex items-center gap-2">
           {loading && <LoadingSpinner />}
           {children}
         </span>

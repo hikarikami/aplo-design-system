@@ -18,6 +18,7 @@ import AiPromptsDocs from '@/pages/docs/ai-prompts'
 import CodeDocs from '@/pages/docs/code'
 import ThemingDocs from '@/pages/docs/theming'
 import GettingStartedDocs from '@/pages/docs/getting-started'
+import TabsDocs from '@/pages/docs/tabs'
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="code"            element={<CodeDocs />} />
           <Route path="theming"         element={<ThemingDocs />} />
           <Route path="getting-started" element={<GettingStartedDocs />} />
+          <Route path="tabs"           element={<TabsDocs />} />
         </Route>
       </Routes>
     </div>

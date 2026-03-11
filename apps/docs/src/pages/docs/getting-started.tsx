@@ -7,6 +7,7 @@ const TOC = [
   { id: 'styles', label: 'Styles' },
   { id: 'tailwind', label: 'Tailwind Integration' },
   { id: 'usage', label: 'Usage' },
+  { id: 'ai-setup', label: 'AI Assistant Setup' },
 ]
 
 export default function GettingStartedDocs() {
@@ -18,6 +19,15 @@ export default function GettingStartedDocs() {
       />
 
       <DocSection id="installation" title="Installation">
+        <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/40 px-4 py-3 mb-4">
+          <span className="text-sm text-muted-foreground">
+            Starting a new project with AI?{' '}
+            <a href="/docs/ai-prompts#project-setup" className="text-primary underline-offset-4 hover:underline">
+              Use the AI Project Setup prompt
+            </a>{' '}
+            to have Claude scaffold the entire setup for you.
+          </span>
+        </div>
         <p className="text-sm text-muted-foreground mb-4">
           Install the package with your preferred package manager.
         </p>
@@ -98,6 +108,32 @@ export function MyForm() {
 }`}</Code>
         <p className="text-sm text-muted-foreground mt-4">
           Browse the Components section in the sidebar to see all available components with live previews and full API references.
+        </p>
+      </DocSection>
+
+      <DocSection id="ai-setup" title="AI Assistant Setup">
+        <p className="text-sm text-muted-foreground mb-4">
+          Aplo ships AI rules alongside the package so coding assistants know to use the design system correctly — the right components, tokens, and patterns — instead of generating raw HTML or introducing incompatible libraries.
+        </p>
+        <p className="text-sm text-muted-foreground mb-4">
+          Add the following to your project's <code className="text-xs bg-muted px-1.5 py-0.5 rounded">CLAUDE.md</code> (create it at the project root if it doesn't exist):
+        </p>
+        <Code language="markdown">{`# UI
+
+@node_modules/@aplo/ui/design-system/01-design-principles.md
+@node_modules/@aplo/ui/design-system/02-ui-rules.md
+@node_modules/@aplo/ui/design-system/ai-rules.md
+@node_modules/@aplo/ui/design-system/03-components.md
+@node_modules/@aplo/ui/design-system/04-layout-patterns.md`}</Code>
+        <p className="text-sm text-muted-foreground mt-4 mb-4">
+          For Cursor, create <code className="text-xs bg-muted px-1.5 py-0.5 rounded">.cursor/rules/aplo-ui.mdc</code>:
+        </p>
+        <Code language="markdown">{`---
+alwaysApply: true
+---
+@node_modules/@aplo/ui/design-system/ai-rules.md`}</Code>
+        <p className="text-sm text-muted-foreground mt-4">
+          The rules file is included in the published package — no extra downloads needed.
         </p>
       </DocSection>
 

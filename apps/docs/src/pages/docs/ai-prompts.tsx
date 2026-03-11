@@ -3,10 +3,9 @@ import { DocPage, DocSection } from '@/components/doc-page'
 
 const TOC = [
   { id: 'overview', label: 'Overview' },
-  { id: 'system-prompt', label: 'System Prompt' },
   { id: 'project-setup', label: 'New Project Setup' },
+  { id: 'system-prompt', label: 'System Prompt' },
   { id: 'feature-prompt', label: 'Feature Prompts' },
-  { id: 'claude-md', label: 'CLAUDE.md Template' },
 ]
 
 export default function AiPromptsDocs() {
@@ -21,59 +20,17 @@ export default function AiPromptsDocs() {
       <DocSection id="overview" title="Overview">
         <div className="space-y-3 text-sm text-muted-foreground">
           <p>
-            AI assistants generate generic UI by default — raw <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{'<button>'}</code> elements, inline styles, and custom components that don't fit the system. These prompts solve that by giving the AI the context it needs to use <code className="text-xs bg-muted px-1.5 py-0.5 rounded">@aplo/ui</code> correctly from the start.
+            AI assistants generate generic UI by default — raw <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{'<button>'}</code> elements, inline styles, and custom components that don't fit the system. These prompts give the AI the context it needs to use <code className="text-xs bg-muted px-1.5 py-0.5 rounded">@aplo/ui</code> correctly from the start.
           </p>
           <p>
-            Use the <strong className="text-foreground">System Prompt</strong> for ongoing sessions, the <strong className="text-foreground">Project Setup</strong> prompt when scaffolding a new app, and the <strong className="text-foreground">CLAUDE.md template</strong> to make Claude Code remember the rules across all sessions automatically.
+            Use the <strong className="text-foreground">New Project Setup</strong> prompt when scaffolding a new app, the <strong className="text-foreground">System Prompt</strong> at the start of any ongoing session, and the <strong className="text-foreground">Feature Prompts</strong> mid-session when building a specific screen or component.
           </p>
         </div>
       </DocSection>
 
-      <DocSection id="system-prompt" title="System Prompt">
-        <p className="text-sm text-muted-foreground">
-          Paste this into any AI assistant at the start of a session, or save it as a project-level instruction in Cursor / Claude Code.
-        </p>
-        <Code showCopy>{`You are building UI for the Aplo design system.
-
-## Stack
-- React 18 + TypeScript + Vite
-- Tailwind CSS v4 (tokens defined in theme.css)
-- Components: @aplo/ui
-- Headless primitives: @base-ui-components/react
-- Class composition: cn() from @aplo/ui
-- Motion: useMotion() from @aplo/ui — always gate animations on this hook
-
-## Before Writing Any UI
-1. Check for an existing @aplo/ui component that covers the need.
-2. Only write custom markup if no matching component exists.
-
-## Component Usage Rules
-- Import from @aplo/ui:
-  import { Accordion, Button, Input, Select, Checkbox, Switch,
-    Radio, RadioGroup, RadioCard, Sidebar, Navbar, Hero, Container,
-    PageHeader, Stack, FileUpload, LottieIcon, Code } from '@aplo/ui'
-- Never write raw <button>, <input>, <select>, or <input type="checkbox/radio">
-- Icons: lucide-react only. No other icon libraries.
-- Colors: semantic Tailwind classes only (bg-primary, text-foreground,
-  border-border, bg-card, bg-muted, text-destructive). No hex/hsl values.
-- Radius: rounded-md (interactive), rounded-lg (cards). Nothing larger.
-
-## Layout Rules
-- Wrap all page content in Container (max-w-page = 77.5rem, px-6).
-- App root must be wrapped in AploProvider (= ThemeProvider + MotionProvider).
-- App shell: Navbar → flex row → Sidebar + <main>.
-- Hero is full-bleed — never nest inside Container.
-
-## Consistency Rules
-- Prefer existing patterns over new ones.
-- Do not add new color tokens, font families, or breakpoints.
-- Do not use framer-motion or other animation libraries.
-- Keep solutions minimal.`}</Code>
-      </DocSection>
-
       <DocSection id="project-setup" title="New Project Setup">
-        <p className="text-sm text-muted-foreground">
-          Use this when starting a brand-new app that should use the Aplo design system.
+        <p className="text-sm text-muted-foreground mb-4">
+          Use this when starting a brand-new app with the Aplo design system. Paste it into Claude Code or Cursor and it will scaffold the full setup for you.
         </p>
         <Code showCopy>{`Set up a new React + TypeScript + Vite app using the @aplo/ui design system.
 
@@ -91,7 +48,7 @@ export default function AiPromptsDocs() {
      </AploProvider>
    )
 
-3. In vite.config.ts, add the Tailwind plugin and CSS source for @aplo/ui:
+3. In vite.config.ts, add the Tailwind plugin:
    import tailwindcss from '@tailwindcss/vite'
    plugins: [react(), tailwindcss()]
 
@@ -105,24 +62,42 @@ export default function AiPromptsDocs() {
 
 Use @aplo/ui components exclusively — never write raw HTML inputs,
 buttons, or selects.`}</Code>
+      </DocSection>
 
-        <p className="text-sm text-muted-foreground">
-          And for a monorepo setup that works in a pnpm workspace (like this one):
+      <DocSection id="system-prompt" title="System Prompt">
+        <p className="text-sm text-muted-foreground mb-4">
+          Use this at the start of any session in an existing project. It establishes the tech stack and directs the AI to read the design system rules shipped with the package.
         </p>
-        <Code language="bash" showCopy>{`# Install in your app
-pnpm add @aplo/ui
+        <Code showCopy>{`You are working in an existing React + TypeScript + Vite project using the @aplo/ui design system.
 
-# If consuming from a local workspace
-# In your app's package.json:
-"@aplo/ui": "workspace:*"
+## Tech Stack
+- React 18 + TypeScript + Vite
+- Tailwind CSS v4
+- @aplo/ui for all UI components
+- @base-ui-components/react for headless primitives
+- lucide-react for icons (no other icon libraries)
+- cn() from @aplo/ui for class merging
+- useMotion() from @aplo/ui for animation gating
 
-# Build the library before the app
-pnpm --filter @aplo/ui build`}</Code>
+## Design System Rules
+Before generating any UI, read the following files from the installed package:
+- node_modules/@aplo/ui/design-system/01-design-principles.md
+- node_modules/@aplo/ui/design-system/02-ui-rules.md
+- node_modules/@aplo/ui/design-system/ai-rules.md
+- node_modules/@aplo/ui/design-system/03-components.md
+- node_modules/@aplo/ui/design-system/04-layout-patterns.md
+
+Adhere strictly to all rules defined in those files.`}</Code>
+        <p className="text-sm text-muted-foreground mt-4">
+          If you're using Claude Code, set up <code className="text-xs bg-muted px-1.5 py-0.5 rounded">CLAUDE.md</code> instead — see{' '}
+          <a href="/docs/getting-started#ai-setup" className="text-primary underline-offset-4 hover:underline">AI Assistant Setup</a>{' '}
+          in Getting Started. The rules load automatically every session without needing to paste this prompt.
+        </p>
       </DocSection>
 
       <DocSection id="feature-prompt" title="Feature Prompts">
-        <p className="text-sm text-muted-foreground">
-          Use these prompts mid-session when asking an AI to build a specific screen or feature.
+        <p className="text-sm text-muted-foreground mb-4">
+          Use these mid-session when asking an AI to build a specific screen or feature.
         </p>
 
         <div className="space-y-4">
@@ -189,65 +164,19 @@ Example structure:
 
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">New Component</p>
-            <Code showCopy>{`Create a new [component name] component for @aplo/ui.
+            <Code showCopy>{`Create a new [component name] component using @aplo/ui patterns.
 
-Follow the existing patterns in packages/ui/src/components/:
+Follow the existing component conventions:
 - Use @base-ui-components/react for headless behavior (keyboard, ARIA, focus)
 - Use CVA (class-variance-authority) for variants
-- Use cn() from ../../lib/utils for class merging
-- Use useMotion() from ../../lib/motion to gate transitions
+- Use cn() from @aplo/ui for class merging
+- Use useMotion() from @aplo/ui to gate transitions
 - Export via forwardRef
-- Add a barrel export in index.ts
 
 Match border radius, ring color (ring-ring), and muted/foreground token
 usage exactly to existing components like Button or Input.`}</Code>
           </div>
         </div>
-      </DocSection>
-
-      <DocSection id="claude-md" title="CLAUDE.md Template">
-        <p className="text-sm text-muted-foreground">
-          Drop a <code className="text-xs bg-muted px-1.5 py-0.5 rounded">CLAUDE.md</code> file at your project root to make Claude Code follow these rules automatically in every session — no need to re-paste the system prompt.
-        </p>
-        <Code showCopy>{`# Project Rules
-
-## Stack
-- React 18 + TypeScript + Vite
-- Tailwind CSS v4
-- @aplo/ui for all UI components
-- lucide-react for icons only
-- pnpm as the package manager
-
-## UI Rules
-- Never write raw <button>, <input>, <select>, or checkbox/radio inputs
-- Always import components from @aplo/ui
-- Use cn() from @aplo/ui for class merging
-- Use semantic Tailwind color tokens only (bg-primary, text-foreground, etc.)
-- No inline style={{ color, background }} — use Tailwind classes
-- No framer-motion — use useMotion() from @aplo/ui for animation gating
-- Radius: rounded-md for interactive, rounded-lg for cards. Never larger.
-- Hero is full-bleed — never nest inside Container
-
-## Layout
-- Wrap page content in <Container>
-- Wrap app root in <AploProvider> (= ThemeProvider + MotionProvider combined)
-- App shell: Navbar → flex row → Sidebar + <main>
-- Use Stack around full-bleed sections to isolate z-index stacking
-
-## Available Components
-Accordion, Button, Checkbox, Code, Container, FileUpload, Hero, Input, Label,
-LottieIcon, Navbar, PageHeader, Radio, RadioCard, RadioGroup, Select, Sidebar,
-Stack, Switch
-
-## Workflow
-- \`pnpm dev\` — start the dev server
-- \`pnpm build\` — build @aplo/ui then docs
-- \`pnpm gen:props\` — regenerate props tables after changing component interfaces
-- Check existing @aplo/ui components before writing custom markup`}</Code>
-
-        <p className="text-sm text-muted-foreground">
-          Place this file at the root of any project that uses <code className="text-xs bg-muted px-1.5 py-0.5 rounded">@aplo/ui</code>. Claude Code reads it automatically before every session.
-        </p>
       </DocSection>
 
     </DocPage>

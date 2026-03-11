@@ -14,6 +14,7 @@ const COMPONENTS = [
   { label: 'Select',    to: '/docs/select'    },
   { label: 'Sidebar',   to: '/docs/sidebar'   },
   { label: 'Switch',    to: '/docs/switch'    },
+  { label: 'Tabs',      to: '/docs/tabs'      },
   { label: 'Upload',    to: '/docs/upload'    },
 ]
 
