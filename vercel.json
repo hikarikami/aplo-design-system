@@ -1,5 +1,5 @@
 {
   "buildCommand": "pnpm --filter aplo-docs build",
-  "outputDirectory": "apps/docs/dist",
+  "outputDirectory": "dist",
   "installCommand": "pnpm install"
 }
