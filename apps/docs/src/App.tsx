@@ -13,6 +13,7 @@ import UploadDocs from '@/pages/docs/upload'
 import InputDocs from '@/pages/docs/input'
 import SelectDocs from '@/pages/docs/select'
 import HeroDocs from '@/pages/docs/hero'
+import AiPromptsDocs from '@/pages/docs/ai-prompts'
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="input"    element={<InputDocs />} />
           <Route path="select"   element={<SelectDocs />} />
           <Route path="hero"     element={<HeroDocs />} />
+          <Route path="ai-prompts" element={<AiPromptsDocs />} />
         </Route>
       </Routes>
     </div>
