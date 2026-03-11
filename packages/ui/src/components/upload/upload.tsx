@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { UploadCloud } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/button'
+import { cn } from '../../lib/utils'
+import { Button } from '../../components/button'
 
 export interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Called when a valid file is chosen via click, drag-drop, or paste */

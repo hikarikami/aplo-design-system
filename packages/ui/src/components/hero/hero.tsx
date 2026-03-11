@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { cn } from '@/lib/utils'
-import { useMotion } from '@/lib/motion'
+import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 

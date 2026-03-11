@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Checkbox as BaseCheckbox } from '@base-ui-components/react/checkbox'
-import { cn } from '@/lib/utils'
-import { useMotion } from '@/lib/motion'
+import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
 
 export interface CheckboxProps {
   checked?: boolean

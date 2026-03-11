@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Select as BaseSelect } from '@base-ui-components/react/select'
-import { cn } from '@/lib/utils'
-import { useMotion } from '@/lib/motion'
-import { Label } from '@/components/label'
+import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
+import { Label } from '../../components/label'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Select — Base UI Select with Aplo branding, sized to match Input.

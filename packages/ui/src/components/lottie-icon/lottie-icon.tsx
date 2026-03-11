@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Lottie from 'lottie-react'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 export interface LottieIconProps {
   /** Lottie animation data object (JSON-based) */

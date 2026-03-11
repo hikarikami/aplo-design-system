@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { RadioGroup as BaseRadioGroup } from '@base-ui-components/react/radio-group'
 import { Radio as BaseRadio } from '@base-ui-components/react/radio'
-import { cn } from '@/lib/utils'
-import { useMotion } from '@/lib/motion'
+import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
 
 // ─── RadioGroup ──────────────────────────────────────────────────────────────
 // Provides shared selection state for all Radio / RadioCard children.

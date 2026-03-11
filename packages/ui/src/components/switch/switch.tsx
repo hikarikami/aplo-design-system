@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Switch as BaseSwitch } from '@base-ui-components/react/switch'
-import { cn } from '@/lib/utils'
-import { useMotion } from '@/lib/motion'
+import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
 
 export interface SwitchProps {
   checked?: boolean

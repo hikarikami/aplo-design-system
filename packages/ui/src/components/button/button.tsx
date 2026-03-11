@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
-import { createStippleRipple } from '@/lib/stipple-ripple'
-import { useMotion } from '@/lib/motion'
+import { cn } from '../../lib/utils'
+import { createStippleRipple } from '../../lib/stipple-ripple'
+import { useMotion } from '../../lib/motion'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Button variants — Using Tailwind v4 Semantic Tokens

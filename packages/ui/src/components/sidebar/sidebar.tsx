@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Collapsible } from '@base-ui-components/react/collapsible'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { useMotion } from '@/lib/motion'
+import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
 
 export interface SidebarProps {
   /** Nav/content to render inside the expanded panel */
