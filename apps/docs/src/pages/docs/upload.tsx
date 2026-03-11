@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Code, FileUpload, PageHeader } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { Preview } from '@/components/preview'
 
 const TOC = [
   { id: 'installation', label: 'Installation' },
@@ -16,18 +17,14 @@ const TOC = [
 export default function UploadDocs() {
   return (
     <DocPage toc={TOC}>
-
-      <PageHeader
-        title="File Upload"
-        description="A drag-and-drop zone with a marching ant dashed border. Supports click-to-browse, drag-over, and paste-from-clipboard."
-      />
+      <PageHeader title="File Upload" description="A drag-and-drop zone with a marching ant dashed border. Supports click-to-browse, drag-over, and paste-from-clipboard." />
 
       <DocSection id="installation" title="Installation">
         <Code language="ts">{`import { FileUpload } from '@aplo/ui'`}</Code>
       </DocSection>
 
       <DocSection id="usage" title="Usage">
-        <Code>{`// Minimal — uses default accept (JPEG/PNG/WebP) and 10 MB cap
+        <Code>{`// Minimal
 <FileUpload onFileSelect={(file) => console.log(file)} />
 
 // Custom file types and size limit
@@ -39,35 +36,34 @@ export default function UploadDocs() {
   onFileSelect={(file) => handleFile(file)}
 />
 
-// Show a validation error externally
+// With validation error
 <FileUpload error="That file is too large." />`}</Code>
       </DocSection>
 
       <DocSection id="default" title="Default">
-        <div className="max-w-lg">
-          <FileUpload />
-        </div>
+        <Preview centered={false} className="p-6">
+          <div className="max-w-lg w-full"><FileUpload /></div>
+        </Preview>
       </DocSection>
 
       <DocSection id="custom-copy" title="Custom Label &amp; Hint">
-        <div className="max-w-lg">
-          <FileUpload
-            label="Upload your document"
-            hint="PDF or DOCX · Max 25 MB"
-            accept={['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']}
-            maxSizeMb={25}
-          />
-        </div>
+        <Preview centered={false} className="p-6">
+          <div className="max-w-lg w-full">
+            <FileUpload label="Upload your document" hint="PDF or DOCX · Max 25 MB" accept={['application/pdf']} maxSizeMb={25} />
+          </div>
+        </Preview>
       </DocSection>
 
       <DocSection id="error" title="With Error">
-        <div className="max-w-lg">
-          <FileUpload error="Please upload a JPG or PNG image." />
-        </div>
+        <Preview centered={false} className="p-6">
+          <div className="max-w-lg w-full"><FileUpload error="Please upload a JPG or PNG image." /></div>
+        </Preview>
       </DocSection>
 
       <DocSection id="full-width" title="Full Width">
-        <FileUpload />
+        <Preview centered={false} className="p-6">
+          <FileUpload />
+        </Preview>
       </DocSection>
 
       <DocSection id="api" title="API Reference">
@@ -80,7 +76,6 @@ export default function UploadDocs() {
           { name: 'error', type: 'string', default: '—' },
         ]} />
       </DocSection>
-
     </DocPage>
   )
 }

@@ -1,6 +1,7 @@
 import { Code, PageHeader, Switch } from '@aplo/ui'
 import { DocPage, DocSection } from '@/components/doc-page'
 import { PropsTable } from '@/components/props-table'
+import { Preview } from '@/components/preview'
 
 const TOC = [
   { id: 'installation', label: 'Installation' },
@@ -14,11 +15,7 @@ const TOC = [
 export default function SwitchDocs() {
   return (
     <DocPage toc={TOC}>
-
-      <PageHeader
-        title="Switch"
-        description="An accessible toggle switch built on Base UI. Supports controlled and uncontrolled usage, two sizes, and motion-aware transitions."
-      />
+      <PageHeader title="Switch" description="An accessible toggle switch built on Base UI. Supports controlled and uncontrolled usage, two sizes, and motion-aware transitions." />
 
       <DocSection id="installation" title="Installation">
         <Code language="ts">{`import { Switch } from '@aplo/ui'`}</Code>
@@ -40,26 +37,32 @@ const [enabled, setEnabled] = useState(false)
       </DocSection>
 
       <DocSection id="sizes" title="Sizes">
-        <Row>
-          <LabelledSwitch label="Default" size="default" defaultChecked />
-          <LabelledSwitch label="Small" size="sm" defaultChecked />
-        </Row>
+        <Preview>
+          <Row>
+            <LabelledSwitch label="Default" size="default" defaultChecked />
+            <LabelledSwitch label="Small" size="sm" defaultChecked />
+          </Row>
+        </Preview>
       </DocSection>
 
       <DocSection id="states" title="States">
-        <Row>
-          <LabelledSwitch label="Off" />
-          <LabelledSwitch label="On" defaultChecked />
-          <LabelledSwitch label="Small off" size="sm" />
-          <LabelledSwitch label="Small on" size="sm" defaultChecked />
-        </Row>
+        <Preview>
+          <Row>
+            <LabelledSwitch label="Off" />
+            <LabelledSwitch label="On" defaultChecked />
+            <LabelledSwitch label="Small off" size="sm" />
+            <LabelledSwitch label="Small on" size="sm" defaultChecked />
+          </Row>
+        </Preview>
       </DocSection>
 
       <DocSection id="disabled" title="Disabled">
-        <Row>
-          <LabelledSwitch label="Disabled off" disabled />
-          <LabelledSwitch label="Disabled on" defaultChecked disabled />
-        </Row>
+        <Preview>
+          <Row>
+            <LabelledSwitch label="Disabled off" disabled />
+            <LabelledSwitch label="Disabled on" defaultChecked disabled />
+          </Row>
+        </Preview>
       </DocSection>
 
       <DocSection id="api" title="API Reference">
@@ -71,15 +74,11 @@ const [enabled, setEnabled] = useState(false)
           { name: 'disabled', type: 'boolean', default: 'false' },
         ]} />
       </DocSection>
-
     </DocPage>
   )
 }
 
-function LabelledSwitch({
-  label,
-  ...props
-}: { label: string } & React.ComponentProps<typeof Switch>) {
+function LabelledSwitch({ label, ...props }: { label: string } & React.ComponentProps<typeof Switch>) {
   return (
     <label className="flex items-center gap-2.5 cursor-pointer select-none">
       <Switch {...props} />
