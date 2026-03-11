@@ -4,7 +4,7 @@ import { useMotion } from '../../lib/motion'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const RADIUS = 640;
+const DEFAULT_RADIUS = 640;
 const PARTICLE_COUNT = 60000;
 const DOT_COLOR = '0,107,105'; // #006B69 — primary teal
 
@@ -33,29 +33,26 @@ interface StippleParticle {
   freqScale: number // per-particle speed multiplier (0.6–1.4×) for organic variation
 }
 
-// ─── Particles ────────────────────────────────────────────────────────────────
+// ─── Shared particle pool ─────────────────────────────────────────────────────
+// Particles are pure read-only data (normalised coordinates + timing constants).
+// Building 60 K objects is expensive — share one pool across all Hero instances
+// so the cost is paid once per page load, not once per mounted component.
 
-function buildParticles(): StippleParticle[] {
-  return Array.from({ length: PARTICLE_COUNT }, () => {
+let _sharedParticles: StippleParticle[] | null = null
 
-
-    let normR: number
-
-  
- 
-         normR = Math.sqrt(Math.random()) * 0.6
- 
-
-    return {
-      normR,
+function getParticles(): StippleParticle[] {
+  if (!_sharedParticles) {
+    _sharedParticles = Array.from({ length: PARTICLE_COUNT }, () => ({
+      normR: Math.sqrt(Math.random()) * 0.6,
       angle: Math.random() * Math.PI * 2,
       size: Math.random() * 0.4 + 1.4,
       baseAlpha: Math.random() * 0.45 + 0.22,
       phaseX: Math.random() * Math.PI * 2,
       phaseY: Math.random() * Math.PI * 2,
       freqScale: 4.6 + Math.random() * 6.4,
-    }
-  })
+    }))
+  }
+  return _sharedParticles
 }
 
 // ─── Canvas setup ─────────────────────────────────────────────────────────────
@@ -65,19 +62,20 @@ function setupStippleGlobe(
   container: HTMLElement,
   shadowAngle: number,
   shadowStrength: number,
+  radius: number,
 ): () => void {
   const ctx = canvas.getContext('2d')!
-  const particles = buildParticles()
+  const particles = getParticles()
 
   // Globe anchored to bottom-right, bleeding off both edges for that Aplo look
-  const globeX = canvas.width  - RADIUS * 0.2
+  const globeX = canvas.width  - radius * 0.2
   const globeY = canvas.height * .8
 
   // Shadow origin — a point near the globe edge in the shadow direction.
   // Radial distance from this point drives the per-particle alpha falloff,
   // producing a circular gradient rather than a directional cosine sweep.
-  const sOX = globeX + Math.cos(shadowAngle) * RADIUS * 0.9
-  const sOY = globeY + Math.sin(shadowAngle) * RADIUS * 0.9
+  const sOX = globeX + Math.cos(shadowAngle) * radius * 0.9
+  const sOY = globeY + Math.sin(shadowAngle) * radius * 0.9
 
   // Mouse position tracked 1:1 — no smoothing, instant response
   let mouseX = -9999
@@ -97,7 +95,7 @@ function setupStippleGlobe(
     const dy = my - globeY
     const distToGlobe = Math.sqrt(dx * dx + dy * dy)
 
-    if (distToGlobe >= SWAY_INFLUENCE_R + RADIUS) {
+    if (distToGlobe >= SWAY_INFLUENCE_R + radius) {
       if (mouseLeftAt < 0) {
         mouseLeftAt = performance.now()
         swayFreezeTime = lastNow
@@ -150,7 +148,7 @@ function setupStippleGlobe(
       // Cull purely on radial factors before doing any 2D position math
       if (p.baseAlpha * centerGradient * edgeFade < 0.01) continue
 
-      const r = p.normR * RADIUS
+      const r = p.normR * radius
       let x = globeX + Math.cos(p.angle) * r
       let y = globeY + Math.sin(p.angle) * r
 
@@ -187,7 +185,7 @@ function setupStippleGlobe(
       // consistent with where the particle actually appears on screen.
       const dxS = x - sOX
       const dyS = y - sOY
-      const t = Math.min(1, Math.sqrt(dxS * dxS + dyS * dyS) / (RADIUS * 1.9))
+      const t = Math.min(1, Math.sqrt(dxS * dxS + dyS * dyS) / (radius * 1.9))
       const directional = 1 - shadowStrength * Math.pow(1 - t, 1.5)
       const alpha = p.baseAlpha * centerGradient * edgeFade * directional
       if (alpha < 0.01) continue
@@ -217,15 +215,16 @@ function drawStaticStippleGlobe(
   canvas: HTMLCanvasElement,
   shadowAngle: number,
   shadowStrength: number,
+  radius: number,
 ): void {
   const ctx = canvas.getContext('2d')!
-  const particles = buildParticles()
+  const particles = getParticles()
 
-  const globeX = canvas.width  - RADIUS * 0.2
+  const globeX = canvas.width  - radius * 0.2
   const globeY = canvas.height * 0.8
 
-  const sOX = globeX + Math.cos(shadowAngle) * RADIUS * 0.9
-  const sOY = globeY + Math.sin(shadowAngle) * RADIUS * 0.9
+  const sOX = globeX + Math.cos(shadowAngle) * radius * 0.9
+  const sOY = globeY + Math.sin(shadowAngle) * radius * 0.9
 
   ctx.fillStyle = `rgb(${DOT_COLOR})`
 
@@ -233,13 +232,13 @@ function drawStaticStippleGlobe(
     const centerGradient = 1 - p.normR * 0.70
     const edgeFade = p.normR > 0.85 ? 1 - (p.normR - 0.85) / 0.15 : 1
 
-    const r = p.normR * RADIUS
+    const r = p.normR * radius
     const x = globeX + Math.cos(p.angle) * r
     const y = globeY + Math.sin(p.angle) * r
 
     const dxS = x - sOX
     const dyS = y - sOY
-    const t = Math.min(1, Math.sqrt(dxS * dxS + dyS * dyS) / (RADIUS * 1.9))
+    const t = Math.min(1, Math.sqrt(dxS * dxS + dyS * dyS) / (radius * 1.9))
     const directional = 1 - shadowStrength * Math.pow(1 - t, 1.5)
     const alpha = p.baseAlpha * centerGradient * edgeFade * directional
     if (alpha < 0.01) continue
@@ -253,6 +252,13 @@ function drawStaticStippleGlobe(
   ctx.globalAlpha = 1
 }
 
+// ─── Radius helpers ───────────────────────────────────────────────────────────
+
+/** Compute a radius that fills roughly 1/3 of the hero — scales with container size. */
+function computeScaledRadius(width: number, height: number): number {
+  return Math.round((width + height) / 4)
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export type HeroBackgroundEffect = 'none' | 'stipple-follow'
@@ -261,14 +267,26 @@ export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
   backgroundEffect?: HeroBackgroundEffect
   /** Angle (degrees) of the sparse/shadow side of the globe. Default: −135 (top-left) */
   globeShadowAngle?: number
-  /** Strength of the directional density gradient (0 = uniform, 1 = maximum). Default: 0.7 */
+  /** Strength of the directional density gradient (0 = uniform, 1 = maximum). Default: 0.75 */
   globeShadowStrength?: number
+  /**
+   * When true the globe radius scales proportionally with the container so it
+   * always occupies roughly one-third of the hero. Default: false (uses 640 px).
+   */
+  scaleCircle?: boolean
+  /**
+   * Explicit globe radius in pixels. Takes precedence over both `scaleCircle`
+   * and the built-in default when provided.
+   */
+  globeRadius?: number
 }
 
 export function Hero({
   backgroundEffect = 'none',
   globeShadowAngle = -135,
   globeShadowStrength = DEFAULT_SHADOW_STRENGTH,
+  scaleCircle = false,
+  globeRadius,
   className,
   children,
   ...props
@@ -323,29 +341,65 @@ export function Hero({
 
     const shadowAngle = (globeShadowAngle * Math.PI) / 180
     let cleanup: (() => void) | undefined
+    let isVisible = false
 
     function setup() {
       cleanup?.()
       canvas!.width  = section!.offsetWidth
       canvas!.height = section!.offsetHeight
+
+      // Priority: explicit prop → scaled → fixed default
+      const radius = globeRadius
+        ?? (scaleCircle ? computeScaledRadius(canvas!.width, canvas!.height) : DEFAULT_RADIUS)
+
       if (motionEnabled) {
-        cleanup = setupStippleGlobe(canvas!, section!, shadowAngle, globeShadowStrength)
+        cleanup = setupStippleGlobe(canvas!, section!, shadowAngle, globeShadowStrength, radius)
       } else {
-        drawStaticStippleGlobe(canvas!, shadowAngle, globeShadowStrength)
+        drawStaticStippleGlobe(canvas!, shadowAngle, globeShadowStrength, radius)
         cleanup = undefined
       }
     }
 
-    setup()
+    // ── IntersectionObserver — pause RAF when off-screen, resume when visible ──
+    // On the docs page several Hero previews exist simultaneously; only the one
+    // in the viewport needs to be animating at any given time.
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries[0].isIntersecting
+      if (visible === isVisible) return
+      isVisible = visible
+      if (visible) {
+        setup()
+      } else {
+        cleanup?.()
+        cleanup = undefined
+      }
+    }, { threshold: 0 })
+    io.observe(section)
 
-    const ro = new ResizeObserver(setup)
+    // ── ResizeObserver — only re-setup when the canvas is currently visible ──
+    const ro = new ResizeObserver(() => {
+      if (isVisible) setup()
+    })
     ro.observe(section)
+
+    // ── Page Visibility API — pause all loops when the tab is backgrounded ──
+    function onVisibilityChange() {
+      if (document.hidden) {
+        cleanup?.()
+        cleanup = undefined
+      } else if (isVisible) {
+        setup()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
       cleanup?.()
+      io.disconnect()
       ro.disconnect()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
     }
-  }, [backgroundEffect, motionEnabled, globeShadowAngle, globeShadowStrength])
+  }, [backgroundEffect, motionEnabled, globeShadowAngle, globeShadowStrength, scaleCircle, globeRadius])
 
   return (
     <section

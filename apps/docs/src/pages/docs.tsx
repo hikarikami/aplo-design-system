@@ -5,6 +5,7 @@ import { cn } from '@aplo/ui'
 const COMPONENTS = [
   { label: 'Button',    to: '/docs/button'    },
   { label: 'Checkbox',  to: '/docs/checkbox'  },
+  { label: 'Code',      to: '/docs/code'      },
   { label: 'Hero',      to: '/docs/hero'      },
   { label: 'Input',     to: '/docs/input'     },
   { label: 'Navbar',    to: '/docs/navbar'    },
@@ -17,6 +18,7 @@ const COMPONENTS = [
 
 const GUIDES = [
   { label: 'AI Prompts', to: '/docs/ai-prompts' },
+  { label: 'Theming & Motion', to: '/docs/theming' },
 ]
 
 function NavItem({ label, to }: { label: string; to: string }) {
@@ -42,18 +44,18 @@ function DocsSidebarContent() {
     <div className="p-4 space-y-4">
       <div className="space-y-1">
         <p className="px-3 mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          Components
+          Guides
         </p>
-        {COMPONENTS.map(({ label, to }) => (
+        {GUIDES.map(({ label, to }) => (
           <NavItem key={to} label={label} to={to} />
         ))}
       </div>
 
       <div className="space-y-1">
         <p className="px-3 mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          Guides
+          Components
         </p>
-        {GUIDES.map(({ label, to }) => (
+        {COMPONENTS.map(({ label, to }) => (
           <NavItem key={to} label={label} to={to} />
         ))}
       </div>

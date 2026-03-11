@@ -168,7 +168,7 @@ export function Code({ children, language = 'tsx', showCopy = true, className }:
           className={cn(
             'absolute top-3 right-3 p-1.5 rounded-md transition-all duration-150',
             'text-muted-foreground hover:text-foreground hover:bg-muted',
-            'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
+            'focus-visible:opacity-100',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
             copied && 'text-primary opacity-100',
           )}

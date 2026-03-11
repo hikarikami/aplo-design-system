@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { UploadCloud } from 'lucide-react'
 import { cn } from '../../lib/utils'
+import { useMotion } from '../../lib/motion'
 import { Button } from '../../components/button'
 
 export interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -36,6 +37,7 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
     const [isDragging, setIsDragging] = React.useState(false)
     const [isHovering, setIsHovering] = React.useState(false)
     const [internalError, setInternalError] = React.useState<string | null>(null)
+    const { motionEnabled } = useMotion()
 
     const isActive = isDragging || isHovering
     const displayError = error ?? internalError
@@ -118,7 +120,7 @@ const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
               strokeDasharray="10 6"
               className={cn(
                 'transition-[stroke] duration-300',
-                isActive ? 'stroke-primary animate-march' : 'stroke-border',
+                isActive ? cn('stroke-primary', motionEnabled && 'animate-march') : 'stroke-border',
               )}
             />
           </svg>
