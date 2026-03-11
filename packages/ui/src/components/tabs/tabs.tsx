@@ -180,7 +180,7 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(
             'relative z-10 rounded-md',
             appSizeClasses,
             // inactive — transparent, muted text
-            'text-muted-foreground hover:text-foreground',
+            'text-foreground',
             // active — white text on top of the teal pill
             'data-active:text-primary-foreground data-active:font-semibold',
             // no text-color transition — the sliding indicator is the motion
@@ -194,7 +194,7 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(
             '-mb-px border-b-2 border-transparent',
             // active — primary text, lightened in dark mode
             'data-active:text-primary dark:data-active:text-aplo-300 data-active:font-medium',
-            motionEnabled && 'transition-colors duration-150',
+            motionEnabled && '',
           ],
 
           className,

@@ -205,7 +205,7 @@ export const RadioCard = React.forwardRef<HTMLElement, RadioCardProps>(
           'focus-visible:ring-offset-2 focus-visible:ring-offset-background',
           'hover:border-muted-foreground/50',
           // Selected — primary border, very subtle bg shift
-          'data-checked:border-primary data-checked:bg-secondary/40',
+          'data-checked:border-primary data-checked:bg-aplo-400/5',
           // Disabled
           'data-disabled:pointer-events-none data-disabled:opacity-50',
           // Layout
